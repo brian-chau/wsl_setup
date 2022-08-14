@@ -25,6 +25,7 @@ This is an example of how to use:
     2. Type `wsl`
     3. Press Enter
     4. If you see a popup that says this:
+        * ![Error message](wsl_error_msg.png)
         * Right click on the title bar of the WSL command window > Settings.
         * In the bottom left hand corner, click "Open JSON file"
         * Scroll down to "profiles" JSON item, and find the "defaults" sub-item in there.
@@ -68,7 +69,7 @@ This is an example of how to use:
 
 3. Fix the command line path name.
     1. Edit the ~/.bashrc file.
-        * At the top of the file, paste the following code snippet, where <current_directory> is the name of the 
+        * At the top of the file, paste the following code snippet, where <current_directory> is the name of the
           mount point shown in the console window (e.g. "/mnt/c/Users/`username`")
             ```
             if [[ $PWD == /mnt/c/Users/<username> ]]; then
