@@ -72,13 +72,13 @@ This is an example of how to use:
         * At the top of the file, paste the following code snippet, where <current_directory> is the name of the
           mount point shown in the console window (e.g. "/mnt/c/Users/`username`")
             ```
-            if [[ $PWD == /mnt/c/Users/<username> ]]; then
-              cd /home/<username>/user
+            if [[ $PWD == /mnt/c/Users/$USER ]]; then
+              cd /home/$USER/user
             else
               case $PWD/ in
-                /mnt/c/Users/<username>/*)
-                  without_prefix=${PWD#/mnt/c/Users/<username>/}
-                  cd /home/<username>/user/user/$without_prefix
+                /mnt/c/Users/$USER/*)
+                  without_prefix=${PWD#/mnt/c/Users/$USER/}
+                  cd /home/$USER/user/user/$without_prefix
                   ;;
               esac
             fi
@@ -107,7 +107,7 @@ This is an example of how to use:
         ```
         cd
         mkdir user
-        ln -s /mnt/c/Users/<username> ~/user/user
+        ln -s /mnt/c/Users/$USER ~/user/user
         ```
     5. Restart `wsl`.
 
