@@ -16,11 +16,12 @@ This is an example of how to use:
 1. Install WSL
     1. Start "Command Prompt"
     2. Run `wsl --set-default-version 2`
-    3. Run `wsl --list --online` to see available distributions
-    4. Run `wsl --install -d <distro_name>` based on what you see in the list.
-        * This will take several minutes
 
-2. Start WSL
+2. Install Ubuntu 22
+    1. In the Start menu, open the Microsoft Store, and search for Ubuntu 22.
+    2. Select the item called "Ubuntu 22.04.1 LTS" and click "Install."
+
+3. Start WSL
     1. Press Ctrl+R
     2. Type `wsl`
     3. Press Enter
@@ -67,7 +68,7 @@ This is an example of how to use:
                 ]
                 ```
 
-3. Fix the command line path name.
+4. Fix the command line path name.
     1. Edit the ~/.bashrc file.
         * At the top of the file, paste the following code snippet, where <current_directory> is the name of the
           mount point shown in the console window (e.g. "/mnt/c/Users/`username`")
@@ -111,21 +112,26 @@ This is an example of how to use:
         ```
     5. Restart `wsl`.
 
-4. Update the system
+5. Update the system
     ```
     sudo apt update
     sudo apt upgrade
     sudo apt autoremove
     ```
 
-5. Add custom aliases to ~/.bash_aliases
+6. Add custom aliases to ~/.bash_aliases
     ```
     alias cls="printf '\ec'; history -c"
     alias nanos="nano -ET4"
     alias ii="explorer.exe"
     ```
 
-6. Add GitHub settings
+7. Install gcc-12 and g++-12.
+    1. Restart WSL.
+    2. Run `sudo apt update` and `sudo apt upgrade`
+    3. Run `sudo apt install g++-12 gcc-12`
+
+8. Add GitHub settings
     1. Restart WSL
     2. Run `mkdir repos`
     3. Connect to GitHub
@@ -138,13 +144,13 @@ This is an example of how to use:
                 ssh-keygen -t ed25519 -C "your_email@example.com"
                 eval "$(ssh-agent -s)"
                 ssh-add ~/.ssh/id_ed25519
-                cat ~/.ssh/id_ed25519.pub
                 ```
-            2. Copy the result and go to this page: https://github.com/settings/ssh/new
-            3. For "Title," put "Linux".
-            4. For "Key," paste the copied key.
-            5. Click "Add SSH Key"
-            6. Run `ssh -T git@github.com`, then type "yes"
+            2. Run `cat ~/.ssh/id_ed25519.pub`
+            3. Copy the result and go to this page: https://github.com/settings/ssh/new
+            4. For "Title," put "Linux".
+            5. For "Key," paste the copied key.
+            6. Click "Add SSH Key"
+            7. Run `ssh -T git@github.com`, then type "yes"
 
 ## Setting up VSCode
 1. Right-click on the project folder, select `Open in Linux` to open the application in WSL2, then type `code .`
