@@ -20,6 +20,15 @@ This is an example of how to use:
 2. Install Ubuntu 22
     1. In the Start menu, open the Microsoft Store, and search for Ubuntu 22.
     2. Select the item called "Ubuntu 22.04.1 LTS" and click "Install."
+    3. Click "Open" to launch the command prompt and start the installation process.
+        * If you encounter an error that says `There has been an error`, log out and log back in, and try again.
+        * If you encounter an error that says `Failed to attach disk 'C:\Users\....\ext4.vhdx' to WSL2: The system cannot find the file` then do the following:
+            1. Launch a new command prompt window by pressing `Ctrl+R`, then typing `cmd`
+            2. Type `wsl --list` to find the distribution that used to be installed.
+            3. Type `wslconfig /u <name of distribution that used to be installed>` to unlink the distribution.
+            4. Return to the Windows Store to try again.
+    4. When prompted for the initial account credentials, enter your Windows account username as your username, so that your Linux username will match your Windows username.
+    5. Enter a password, and confirm the password.
 
 3. Start WSL
     1. Press Ctrl+R
@@ -41,7 +50,7 @@ This is an example of how to use:
                     {
                         "guid": "{<some-ascii-hex-string-separated-by-underscores>}",
                         "hidden": false,
-                        "name": "Ubuntu-20.04",
+                        "name": "Ubuntu-22.04",
                         "source": "Windows.Terminal.Wsl"
                     },
                     ...
@@ -52,7 +61,7 @@ This is an example of how to use:
                 "default": {
                     "guid": "{<some-ascii-hex-string-separated-by-underscores>}",
                     "hidden": false,
-                    "name": "Ubuntu-20.04",
+                    "name": "Ubuntu-22.04",
                     "source": "Windows.Terminal.Wsl"
                 },
                 "list":
@@ -61,7 +70,7 @@ This is an example of how to use:
                     {
                         "guid": "{<some-ascii-hex-string-separated-by-underscores>}",
                         "hidden": false,
-                        "name": "Ubuntu-20.04",
+                        "name": "Ubuntu-22.04",
                         "source": "Windows.Terminal.Wsl"
                     },
                     ...
@@ -103,6 +112,26 @@ This is an example of how to use:
                 PS1='${debian_chroot:+($debian_chroot)}\w\$ '
             fi
             ```
+        * Also remove the `\u@\h` details from the title bar
+            ```
+            case "$TERM" in
+            xterm*|rxvt*)
+                PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+                ;;
+            *)
+                ;;
+            esac
+            ```
+        * Change it to this:
+            ```
+            case "$TERM" in
+            xterm*|rxvt*)
+                PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\a\]$PS1"
+                ;;
+            *)
+                ;;
+            esac
+            ```
     3. Save and exit.
     4. In the bash terminal, type the following commands:
         ```
@@ -116,20 +145,20 @@ This is an example of how to use:
     ```
     sudo apt update
     sudo apt upgrade
-    sudo apt autoremove
+    sudo apt autoremove --purge
     ```
 
 6. Add custom aliases to ~/.bash_aliases
     ```
     alias cls="printf '\ec'; history -c"
-    alias nanos="nano -ET4"
+    alias nanos="nano -c -ET4"
     alias ii="explorer.exe"
     ```
 
 7. Install gcc-12 and g++-12.
     1. Restart WSL.
-    2. Run `sudo apt update` and `sudo apt upgrade`
-    3. Run `sudo apt install g++-12 gcc-12`
+    2. Run `sudo apt update && sudo apt upgrade`
+    3. Run `sudo apt install g++-12 gcc-12 build-essential`
 
 8. Add GitHub settings
     1. Restart WSL
@@ -164,19 +193,24 @@ This is an example of how to use:
     5. Better C++ Syntax
     6. Clang Format by xaver
 5. Close VSCode
-6. Type `code .` in the terminal to restart it.
-7. Press Ctrl+Shift+X again to open the "Extensions" window.
-8. If any of the above extensions say "Install in WSL: Ubuntu-20.04", then click that button.
-9. Configure editor settings
+6. Install Clang Format with `sudo apt install clang-format cmake`
+7. Type `code .` in the terminal to restart it.
+8. Press Ctrl+Shift+X again to open the "Extensions" window.
+9. If any of the above extensions say "Install in WSL: Ubuntu-22.04", then click that button.
+10. Configure editor settings
     1. Click the gear icon in the lower left corner.
     2. Click Settings.
     3. In the search bar, type "minimap" and uncheck "Editor > Minimap: Enabled" where the checkbox says "Controls whether the minimap is shown"
     4. In the search bar, type "Trim Trailing Whitespace" and check the box for "Files: Trim Trailing Whitespace"
     5. In the search bar, type "Detect Indentation" and uncheck the box for "Editor: Detect Indentation"
     6. In the search bar, type "Format On Save" and check the box for "Editor: Format On Save"
-    7. In the search box, type `C_Cpp.clang_format_fallbackStyle`
+    7. In the search bar, type `C_Cpp.clang_format_fallbackStyle`
         1. In the field that appears, change `Visual Studio` to `{ BasedOnStyle: Google, IndentWidth: 4 }`
-10. Set the key bindings to build and clean the solution.
+    8. In the search bar, type "Clang-format: Executable".
+        1. In the WSL terminal, type `which clang-format`
+        2. Copy that path and paste it into the field.
+    9. In the search bar, type "Default Formatter" and select from the dropdown menu `C/C++`.
+11. Set the key bindings to build and clean the solution.
     1. Press Ctrl+K Ctrl+S
     2. In the keybindings search box, type "makefile: build clean the target ALL"
         1. Double-click the keybinding and replace it with Ctrl+Shift+B.
