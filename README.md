@@ -1,4 +1,4 @@
-# C++ on WSL2 with VS Code
+# C++ on WSL2 with VS Code and CMake
 
 This is an example of how to use:
 * Install Ubuntu in WSL2
@@ -148,7 +148,7 @@ This is an example of how to use:
     sudo apt autoremove --purge
     ```
 
-6. Add custom aliases to ~/.bash_aliases
+6. Add custom aliases to `~/.bash_aliases`
     ```
     alias cls="printf '\ec'; history -c"
     alias nanos="nano -c -ET4"
@@ -160,7 +160,17 @@ This is an example of how to use:
     2. Run `sudo apt update && sudo apt upgrade`
     3. Run `sudo apt install g++-12 gcc-12 build-essential`
 
-8. Add GitHub settings
+8. Install `cmake` from source.
+    1. Download `cmake-3.25.0.tar.gz` from this link: https://cmake.org/download/
+    2. Unzip it with the command `tar -xzf cmake-3.25.0.tar.gz`.
+    3. Run the following commands:
+        ```
+        sudo ./configure
+        sudo make
+        sudo make install
+        ```
+
+9. Add GitHub settings
     1. Restart WSL
     2. Run `mkdir repos`
     3. Connect to GitHub
@@ -193,7 +203,7 @@ This is an example of how to use:
     5. Better C++ Syntax
     6. Clang Format by xaver
 5. Close VSCode
-6. Install Clang Format with `sudo apt install clang-format cmake`
+6. Install Clang Format with `sudo apt install clang-format`
 7. Type `code .` in the terminal to restart it.
 8. Press Ctrl+Shift+X again to open the "Extensions" window.
 9. If any of the above extensions say "Install in WSL: Ubuntu-22.04", then click that button.
