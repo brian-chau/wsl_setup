@@ -220,6 +220,8 @@ This is an example of how to use:
         1. In the WSL terminal, type `which clang-format`
         2. Copy that path and paste it into the field.
     9. In the search bar, type "Default Formatter" and select from the dropdown menu `C/C++`.
+    10. In the search bar, type `C_Cpp.default.cppStandard` and change the value to `gnu++20`
+
 11. Set the key bindings to build and clean the solution.
     1. Press Ctrl+K Ctrl+S
     2. In the keybindings search box, type "makefile: build clean the target ALL"
